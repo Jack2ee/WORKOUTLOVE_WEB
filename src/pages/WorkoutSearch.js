@@ -4,6 +4,8 @@ import axios from "../apis";
 import { WorkoutContext } from "../contexts/WorkoutStore";
 import { AuthContext } from "../contexts/AuthStore";
 
+import Autosuggest from "../Util/Autosuggest";
+
 const WorkoutSearch = (props) => {
   const { state: workoutState, dispatch: workoutDispatch } = useContext(
     WorkoutContext
@@ -47,8 +49,15 @@ const WorkoutSearch = (props) => {
     }
   }, [authState.authToken, workoutState.allWorkoutsLoaded]);
 
-  console.log(workoutState);
-  return <></>;
+  return (
+    <>
+      <Autosuggest
+        listOfThingsToAutosuggest={workoutState.allWorkouts}
+        inputPlaceholder="운동명을 검색해보세요!"
+        searchKey="workoutNameKor"
+      />
+    </>
+  );
 };
 
 export default WorkoutSearch;
