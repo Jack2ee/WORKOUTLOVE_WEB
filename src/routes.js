@@ -1,11 +1,21 @@
+import HOMEPAGE from "./pages/Home";
 import LOGINPAGE from "./pages/Login";
-import ROUTINEPAGE from "./pages/Routine";
-import ROUTINESEARCHPAGE from "./pages/RoutineSearch";
-import WORKOUTPAGE from "./pages/Workout";
-import WORKOUTSEARCHPAGE from "./pages/WorkoutSearch";
-import MYPAGE from "./pages/My";
+import MYWORKOUTSPAGE from "./pages/Myworkouts";
+
+import ROUTINEPAGE from "./stacks/Routine";
+import ROUTINESEARCHPAGE from "./stacks/RoutineSearch";
+import WORKOUTPAGE from "./stacks/Workout";
+import WORKOUTSEARCHPAGE from "./stacks/WorkoutSearch";
+import MYPAGE from "./stacks/My";
 
 const routes = [
+  // routes to home
+  {
+    path: "/",
+    name: "홈",
+    page: HOMEPAGE,
+    exact: true,
+  },
   // routes related to authentication
   {
     path: "/login",
@@ -31,6 +41,12 @@ const routes = [
     path: "/workouts",
     name: "운동",
     page: WORKOUTPAGE,
+    exact: true,
+  },
+  {
+    path: "/workouts/my",
+    name: "내 운동",
+    page: MYWORKOUTSPAGE,
     exact: true,
   },
   {

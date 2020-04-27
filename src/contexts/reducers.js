@@ -112,3 +112,17 @@ export const mypageReducer = (state, action) => {
     default:
   }
 };
+
+export const UIReducer = (state, action) => {
+  const showBackdrop = (state, action) => {
+    return updatedObject(state, {
+      backdrop: action.backdrop,
+    });
+  };
+
+  switch (action.type) {
+    case "SHOW_BACKDROP":
+      return showBackdrop(state, action);
+    default:
+  }
+};

@@ -8,8 +8,10 @@ import AuthStore from "./contexts/AuthStore";
 import MypageStore from "./contexts/MypageStore";
 import RoutineStore from "./contexts/RoutineStore";
 import WorkoutStore from "./contexts/WorkoutStore";
+import UIStore from "./contexts/UIStore";
 
-import LoginMiddleware from "./Middlewares/LoginMiddleware";
+import AutoLoginMiddleware from "./Middlewares/AutoLoginMiddleware";
+import FullModal from "./UI/FullModal";
 
 const AppContainer = styled.div`
   height: 100vh;
@@ -33,15 +35,17 @@ function App() {
 
   return (
     <AppContainer>
-      <AuthStore>
-        <LoginMiddleware>
-          <MypageStore>
-            <RoutineStore>
-              <WorkoutStore>{switchRoutes}</WorkoutStore>
-            </RoutineStore>
-          </MypageStore>
-        </LoginMiddleware>
-      </AuthStore>
+      <UIStore>
+        <AuthStore>
+          <AutoLoginMiddleware>
+            <MypageStore>
+              <RoutineStore>
+                <WorkoutStore>{switchRoutes}</WorkoutStore>
+              </RoutineStore>
+            </MypageStore>
+          </AutoLoginMiddleware>
+        </AuthStore>
+      </UIStore>
     </AppContainer>
   );
 }

@@ -50,13 +50,11 @@ const WorkoutSearch = (props) => {
   }, [authState.authToken, workoutState.allWorkoutsLoaded]);
 
   return (
-    <>
-      <Autosuggest
-        listOfThingsToAutosuggest={workoutState.allWorkouts}
-        inputPlaceholder="운동명을 검색해보세요!"
-        searchKey="workoutNameKor"
-      />
-    </>
+    <Autosuggest
+      listOfThingsToAutosuggest={workoutState.allWorkouts}
+      inputPlaceholder="운동명을 검색해보세요!"
+      searchKey="workoutNameKor"
+    />
   );
 };
 

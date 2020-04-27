@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-// import { Redirect } from "react-router-dom";
+import React, { useContext, useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import axios from "../apis";
 import styled from "styled-components";
 import jwtDecode from "jwt-decode";
@@ -12,19 +12,24 @@ import SocialLogin from "../components/Login/SocialLogin";
 
 const TOKEN_PRIVATE_KEY = process.env.REACT_APP_TOKEN_PRIVATE_KEY;
 
-const Description = styled.div`
-  height: 50%;
-  text-align: center;
-`;
-
 const LoginContainer = styled.div`
   height: 100%;
   width: 100%;
 `;
 
+const Description = styled.div`
+  height: 50%;
+  text-align: center;
+`;
+
+const LoginErrorStyleWrapper = styled.div`
+  color: "FF9494";
+`;
+
 const LoginPage = (props) => {
+  const [loginError, setLoginError] = useState(false);
   const { state: authState, dispatch: authDispatch } = useContext(AuthContext);
-  const [cookies, setCookies, removeCookies] = useCookies(["token"]);
+  const [, setCookies] = useCookies(["token"]);
 
   const postSocialLoginInfoHandler = async (info) => {
     let authToken;
@@ -37,12 +42,22 @@ const LoginPage = (props) => {
       authToken = result.data.authToken;
     } catch (err) {
       console.log(err);
+      setLoginError(loginError);
     }
 
     let decoded;
+    let uglifiedAuthToken;
     if (authToken) {
       try {
         decoded = await jwtDecode(authToken);
+      } catch (err) {
+        console.log(err);
+      }
+      try {
+        uglifiedAuthToken = CryptoJS.AES.encrypt(
+          authToken,
+          `${TOKEN_PRIVATE_KEY}`
+        ).toString();
       } catch (err) {
         console.log(err);
       }
@@ -51,7 +66,7 @@ const LoginPage = (props) => {
     if (decoded) {
       authDispatch({
         type: "LOGIN",
-        authToken: authToken,
+        authToken: uglifiedAuthToken,
         userId: decoded.userId,
         name: decoded.name,
         oauth: decoded.oauth,
@@ -60,10 +75,7 @@ const LoginPage = (props) => {
     }
 
     if (authToken) {
-      await setCookies(
-        "token",
-        CryptoJS.AES.encrypt(authToken, `${TOKEN_PRIVATE_KEY}`).toString()
-      );
+      await setCookies("token", uglifiedAuthToken);
     }
   };
 
@@ -73,6 +85,12 @@ const LoginPage = (props) => {
       <SocialLogin
         postSocialLoginInfoHandler={(info) => postSocialLoginInfoHandler(info)}
       />
+      {loginError ? (
+        <LoginErrorStyleWrapper>
+          계정정보를 불러올 수 없습니다.
+        </LoginErrorStyleWrapper>
+      ) : null}
+      {authState.authToken ? <Redirect to="/" /> : null}
     </LoginContainer>
   );
 };

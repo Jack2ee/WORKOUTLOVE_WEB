@@ -75,14 +75,14 @@ const AutosuggestComponent = (props) => {
   const [suggestions, setSuggestions] = useState([]);
 
   const getSuggestions = (value) => {
-    const inputValue = deburr(value.trim().toLowerCase());
+    const inputValue = deburr(value.replace(/ /g, "").toLowerCase());
     const inputLength = inputValue.length;
     let count = 0;
     const suggestionList = props.listOfThingsToAutosuggest.filter(
       (suggestion) => {
-        const keep =
-          count < 20 &&
-          suggestion[props.searchKey].replace(/\s/g, "").includes(inputValue);
+        const keep = suggestion[props.searchKey]
+          .replace(/ /g, "")
+          .includes(inputValue);
         if (keep) {
           count += 1;
         }
@@ -90,6 +90,7 @@ const AutosuggestComponent = (props) => {
         return keep;
       }
     );
+
     return inputLength === 0 ? [] : suggestionList;
   };
 
