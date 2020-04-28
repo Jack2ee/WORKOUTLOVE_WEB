@@ -12,6 +12,7 @@ const RoutineStore = (props) => {
     myRoutines: [],
     myRoutineCount: 0,
     myRoutineUpdated: false,
+    selectedRoutineCategory: "allRoutines",
   });
 
   return (

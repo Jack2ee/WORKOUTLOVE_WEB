@@ -31,8 +31,8 @@ const routes = [
     exact: true,
   },
   {
-    path: "/routines/search",
-    name: "루틴검색",
+    path: "/routines/:routineId",
+    name: "루틴상세",
     page: ROUTINESEARCHPAGE,
     exact: true,
   },

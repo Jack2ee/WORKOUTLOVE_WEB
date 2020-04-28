@@ -11,6 +11,7 @@ const AuthStore = (props) => {
     name: null,
     oauth: null,
     oauthProvider: null,
+    profileImageUrl: null,
   });
 
   return (

@@ -8,6 +8,7 @@ export const authReducer = (state, action) => {
       name: action.name,
       oauth: action.oauth,
       oauthProvider: action.oauthProvider,
+      profileImageUrl: action.profileImageUrl,
     });
   };
 
@@ -35,9 +36,19 @@ export const routineReducer = (state, action) => {
     });
   };
 
+  const updateAllRoutines = (state, action) => {
+    return updatedObject(state, {});
+  };
+
   const updateMyRoutines = (state, action) => {
     return updatedObject(state, {
       myRoutinesLoaded: action.myRoutinesLoaded,
+    });
+  };
+
+  const toggleRoutinesMode = (state, action) => {
+    return updatedObject(state, {
+      selectedRoutineCategory: action.selectedRoutineCategory,
     });
   };
 
@@ -46,8 +57,12 @@ export const routineReducer = (state, action) => {
       return saveAllRoutines(state, action);
     case "SAVE_MY_ROUTINES":
       return saveMyRoutines(state, action);
+    case "UPDATE_ALL_ROUTINES":
+      return updateAllRoutines(state, action);
     case "UPDATE_MY_ROUTINES":
       return updateMyRoutines(state, action);
+    case "TOGGLE_ROUTINES_MODE":
+      return toggleRoutinesMode(state, action);
     default:
   }
 };

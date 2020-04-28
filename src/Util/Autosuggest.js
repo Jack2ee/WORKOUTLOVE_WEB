@@ -5,7 +5,7 @@ import parse from "autosuggest-highlight/parse";
 import deburr from "lodash/deburr";
 import styled from "styled-components";
 
-import { breakpoints } from "../UI/sharedStyles";
+import { breakpoints } from "../components/UI/sharedStyles";
 
 const RecommendContainer = styled.div`
   display: flex;

@@ -60,6 +60,7 @@ const AutoLoginMiddleware = (props) => {
         name: decoded.name,
         oauth: decoded.oauth,
         oauthProvider: decoded.oauthProvider,
+        profileImageUrl: decoded.profileImageUrl,
       });
       return true;
     }

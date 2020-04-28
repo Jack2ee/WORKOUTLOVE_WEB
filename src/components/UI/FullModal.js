@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 
-import { UIContext } from "../contexts/UIStore";
+import { UIContext } from "../../contexts/UIStore";
 
 const BackDropWrapper = styled.div`
   position: fixed;

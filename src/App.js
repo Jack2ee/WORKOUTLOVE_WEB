@@ -11,7 +11,7 @@ import WorkoutStore from "./contexts/WorkoutStore";
 import UIStore from "./contexts/UIStore";
 
 import AutoLoginMiddleware from "./Middlewares/AutoLoginMiddleware";
-import FullModal from "./UI/FullModal";
+import FullModal from "./components/UI/FullModal";
 
 const AppContainer = styled.div`
   height: 100vh;
