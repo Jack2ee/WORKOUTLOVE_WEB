@@ -94,7 +94,10 @@ const AutosuggestComponent = (props) => {
     return inputLength === 0 ? [] : suggestionList;
   };
 
-  const getSuggestionValue = (suggestion) => suggestion[props.searchKey];
+  const getSuggestionValue = (suggestion) => {
+    props.clickItemAction(suggestion);
+    return suggestion[props.searchKey];
+  };
 
   const renderSuggestion = (suggestion, { query, isHighlighted }) => {
     const matches = match(suggestion[props.searchKey], query);
@@ -113,7 +116,7 @@ const AutosuggestComponent = (props) => {
               )
             )}
           </div>
-          <div>{suggestion.targetMuscleKor}</div>
+          <div>타켓근육: {suggestion.targetMuscleKor}</div>
         </ItemContainer>
       </RecommendContainer>
     );

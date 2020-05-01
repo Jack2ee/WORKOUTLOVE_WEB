@@ -7,6 +7,7 @@ import { AuthContext } from "../contexts/AuthStore";
 import Header from "../components/UI/Header";
 import ToggleSelect from "../components/Routine/ToggleSelect";
 import RoutineList from "../components/Routine/RoutineList";
+import PageActionButton from "../components/UI/PageActionButton";
 
 const Routine = (props) => {
   const { state: routineState, dispatch: routineDispatch } = useContext(
@@ -58,7 +59,6 @@ const Routine = (props) => {
       type: "SAVE_ALL_ROUTINES",
       allRoutines: allRoutinesChunk.allRoutines,
       totalRoutineCount: allRoutinesChunk.totalRoutineCount,
-      allRoutinesLoaded: true,
     });
   };
 
@@ -68,7 +68,6 @@ const Routine = (props) => {
       type: "SAVE_MY_ROUTINES",
       myRoutines: myRoutinesChunk.myRoutines,
       myRoutineCount: myRoutinesChunk.myRoutineCount,
-      myRoutinesLoaded: true,
     });
   };
 
@@ -80,16 +79,16 @@ const Routine = (props) => {
   };
 
   useEffect(() => {
-    if (authState.authToken && !routineState.myRoutinesLoaded) {
+    if (authState.authToken && !routineState.myRoutinesUpdated) {
       updateMyRoutinesInfoHandler();
     }
-  }, [authState.authToken, routineState.myRoutinesLoaded]);
+  }, [authState.authToken, routineState.myRoutinesUpdated]);
 
   useEffect(() => {
-    if (authState.authToken && !routineState.allRoutinesLoaded) {
+    if (authState.authToken && !routineState.allRoutinesUpdated) {
       updateAllRoutinesInfoHandler();
     }
-  }, [authState.authToken, routineState.allRoutinesLoaded]);
+  }, [authState.authToken, routineState.allRoutinesUpdated]);
 
   const moveToRoutineSearchPageHandler = () => {
     props.history.push("/routines/search");
@@ -97,6 +96,10 @@ const Routine = (props) => {
 
   const moveToRoutineDatailPageHandler = (routineId) => {
     props.history.push(`/routines/${routineId}`);
+  };
+
+  const moveToRoutineCreatePageHandler = () => {
+    props.history.push("/new-routine");
   };
 
   return (
@@ -128,6 +131,9 @@ const Routine = (props) => {
       >
         새로 불러오기
       </div>
+      <PageActionButton
+        actionHandler={() => moveToRoutineCreatePageHandler()}
+      />
     </>
   );
 };

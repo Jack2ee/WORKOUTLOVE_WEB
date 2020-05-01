@@ -36,6 +36,11 @@ const NavigationItems = (props) => {
         navItem="그룹 운동"
         current={props.path == "/group/:groupId" ? "true" : "false"}
       />
+      <NavigationItem
+        to="/market"
+        navItem="마켓"
+        current={props.path == "/market" ? "true" : "false"}
+      />
     </NavigationBarContainer>
   );
 };

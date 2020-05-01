@@ -7,14 +7,16 @@ import routes from "./routes";
 import AuthStore from "./contexts/AuthStore";
 import MypageStore from "./contexts/MypageStore";
 import RoutineStore from "./contexts/RoutineStore";
+import NewRoutineStore from "./contexts/NewRoutineStore";
 import WorkoutStore from "./contexts/WorkoutStore";
+import DailyWorkoutStore from "./contexts/DailyWorkoutStore";
 import UIStore from "./contexts/UIStore";
 
 import AutoLoginMiddleware from "./Middlewares/AutoLoginMiddleware";
-import FullModal from "./components/UI/FullModal";
 
 const AppContainer = styled.div`
   height: 100vh;
+  padding: 10vh 0 8vh 0;
 `;
 
 function App() {
@@ -40,7 +42,11 @@ function App() {
           <AutoLoginMiddleware>
             <MypageStore>
               <RoutineStore>
-                <WorkoutStore>{switchRoutes}</WorkoutStore>
+                <NewRoutineStore>
+                  <WorkoutStore>
+                    <DailyWorkoutStore>{switchRoutes}</DailyWorkoutStore>
+                  </WorkoutStore>
+                </NewRoutineStore>
               </RoutineStore>
             </MypageStore>
           </AutoLoginMiddleware>

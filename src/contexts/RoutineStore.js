@@ -8,7 +8,7 @@ const RoutineStore = (props) => {
   const [state, dispatch] = useReducer(routineReducer, {
     allRoutines: [],
     totalRoutineCount: 0,
-    allRoutinesLoaded: false,
+    allRoutinesUpdated: false,
     myRoutines: [],
     myRoutineCount: 0,
     myRoutineUpdated: false,

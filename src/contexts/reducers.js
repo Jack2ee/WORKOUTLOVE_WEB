@@ -24,7 +24,7 @@ export const routineReducer = (state, action) => {
     return updatedObject(state, {
       allRoutines: action.allRoutines,
       totalRoutineCount: action.totalRoutineCount,
-      allRoutinesLoaded: true,
+      allRoutinesUpdated: true,
     });
   };
 
@@ -32,17 +32,19 @@ export const routineReducer = (state, action) => {
     return updatedObject(state, {
       myRoutines: action.myRoutines,
       myRoutineCount: action.myRoutineCount,
-      myRoutinesLoaded: action.myRoutinesLoaded,
+      myRoutinesUpdated: true,
     });
   };
 
-  const updateAllRoutines = (state, action) => {
-    return updatedObject(state, {});
+  const modifyAllRoutines = (state, action) => {
+    return updatedObject(state, {
+      allRoutinesUpdated: false,
+    });
   };
 
-  const updateMyRoutines = (state, action) => {
+  const modifyMyRoutines = (state, action) => {
     return updatedObject(state, {
-      myRoutinesLoaded: action.myRoutinesLoaded,
+      myRoutinesUpdated: false,
     });
   };
 
@@ -57,12 +59,82 @@ export const routineReducer = (state, action) => {
       return saveAllRoutines(state, action);
     case "SAVE_MY_ROUTINES":
       return saveMyRoutines(state, action);
-    case "UPDATE_ALL_ROUTINES":
-      return updateAllRoutines(state, action);
-    case "UPDATE_MY_ROUTINES":
-      return updateMyRoutines(state, action);
+    case "MODIFY_ALL_ROUTINES":
+      return modifyAllRoutines(state, action);
+    case "MODIFY_MY_ROUTINES":
+      return modifyMyRoutines(state, action);
     case "TOGGLE_ROUTINES_MODE":
       return toggleRoutinesMode(state, action);
+    default:
+  }
+};
+
+export const newRoutineReducer = (state, action) => {
+  const changeRoutineName = (state, action) => {
+    return updatedObject(state, {
+      routineName: action.routineName,
+    });
+  };
+
+  const changeRoutineDescription = (state, action) => {
+    return updatedObject(state, {
+      description: action.description,
+    });
+  };
+
+  const pushWorkoutInfo = (state, action) => {
+    return updatedObject(state, {
+      workouts: [...state.workouts, action.pushedWorkout],
+    });
+  };
+
+  const clearTempWorkout = (state, action) => {
+    return updatedObject(state, {
+      tempWorkout: null,
+    });
+  };
+
+  const saveTempWorkout = (state, action) => {
+    return updatedObject(state, {
+      tempWorkout: action.tempWorkout,
+    });
+  };
+
+  switch (action.type) {
+    case "CHANGE_ROUTINE_NAME":
+      return changeRoutineName(state, action);
+    case "CHANGE_ROUTINE_DESCRIPTION":
+      return changeRoutineDescription(state, action);
+    case "PUSH_WORKOUT_INFO":
+      return pushWorkoutInfo(state, action);
+    case "CLEAR_TEMP_WORKOUT":
+      return clearTempWorkout(state, action);
+    case "SAVE_TEMP_WORKOUT":
+      return saveTempWorkout(state, action);
+    default:
+  }
+};
+
+export const dailyWorkoutReducer = (state, action) => {
+  const saveDailyWorkout = (state, action) => {
+    return updatedObject(state, {
+      dailyWorkouts: action.dailyWorkouts,
+      dailyWorkoutsCount: action.dailyWorkoutsCount,
+      dailyWorkoutsUpdated: true,
+    });
+  };
+
+  const modifyDailyWorkout = (state, action) => {
+    return updatedObject(state, {
+      dailyWorkoutsUpdated: false,
+    });
+  };
+
+  switch (action.type) {
+    case "SAVE_DAILY_WORKOUTS":
+      return saveDailyWorkout(state, action);
+    case "MODIFY_DAILY_WORKOUTS":
+      return modifyDailyWorkout(state, action);
     default:
   }
 };
@@ -72,7 +144,7 @@ export const workoutReducer = (state, action) => {
     return updatedObject(state, {
       allWorkouts: action.allWorkouts,
       totalWorkoutCount: action.totalWorkoutCount,
-      allWorkoutsLoaded: action.allWorkoutsLoaded,
+      allWorkoutsUpdated: true,
     });
   };
 
@@ -80,13 +152,13 @@ export const workoutReducer = (state, action) => {
     return updatedObject(state, {
       myWorkouts: action.myWorkouts,
       myWorkoutCount: action.myWorkoutCount,
-      myWorkoutsLoaded: action.myWorkoutsLoaded,
+      myWorkoutsUpdated: true,
     });
   };
 
-  const updateMyWorkouts = (state, action) => {
+  const modifyAllWorkouts = (state, action) => {
     return updatedObject(state, {
-      myWorkoutsLoaded: action.myWorkoutsLoaded,
+      allWorkoutsUpdated: false,
     });
   };
 
@@ -95,8 +167,8 @@ export const workoutReducer = (state, action) => {
       return saveAllWorkouts(state, action);
     case "SAVE_MY_WORKOUTS":
       return saveMyWorkouts(state, action);
-    case "UPDATE_MY_WORKOUTS":
-      return updateMyWorkouts(state, action);
+    case "MODIFY_ALL_WORKOUTS":
+      return modifyAllWorkouts(state, action);
     default:
   }
 };

@@ -8,10 +8,10 @@ const WorkoutStore = (props) => {
   const [state, dispatch] = useReducer(workoutReducer, {
     allWorkouts: [],
     totalWorkoutCount: 0,
-    allWorkoutsLoaded: false,
+    allWorkoutsUpdated: false,
     myWorkouts: [],
     myWorkoutCount: 0,
-    myWorkoutsLoaded: false,
+    myWorkoutsUpdated: false,
   });
 
   return (
